@@ -2,14 +2,17 @@ package com.example.springsecurity.config.approach_2.passwords;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class PlainTextPasswordEncoder implements PasswordEncoder {
+public class PasswordEncoderCustom implements PasswordEncoder {
+
+
+
     @Override
     public String encode(CharSequence rawPassword) {
-        return rawPassword.toString();
+        return null;
     }
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        return encodedPassword.contentEquals(rawPassword);
+        return false;
     }
 }
