@@ -14,13 +14,13 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 @Configuration
 public class AuthenticationManagerCustom {
 
-    private final AuthenticationProvider authenticationProviderCustom;
+    private final AuthenticationProvider authenticationProvider;
 
     private final UserDetailsService userDetailsService;
 
-    public AuthenticationManagerCustom(AuthenticationProvider authenticationProviderCustom,
+    public AuthenticationManagerCustom(AuthenticationProvider authenticationProvider,
                                        UserDetailsService userDetailsService) {
-        this.authenticationProviderCustom = authenticationProviderCustom;
+        this.authenticationProvider = authenticationProvider;
         this.userDetailsService = userDetailsService;
     }
 
@@ -28,13 +28,8 @@ public class AuthenticationManagerCustom {
     public AuthenticationManager authenticationManager(HttpSecurity httpSecurity)
             throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(this.authenticationProviderCustom);
+        authenticationManagerBuilder.authenticationProvider(this.authenticationProvider);
         authenticationManagerBuilder.userDetailsService(this.userDetailsService);
         return authenticationManagerBuilder.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
     }
 }

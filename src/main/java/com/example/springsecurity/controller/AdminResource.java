@@ -38,7 +38,8 @@ public class AdminResource {
 
     @GetMapping("/logout")
     public ResponseEntity<?> logout() {
-        return ResponseEntity.ok("Logout");
+        adminService.logout();
+        return ResponseEntity.ok("Logout success");
     }
 
     @GetMapping("/test")

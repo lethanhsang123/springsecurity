@@ -8,9 +8,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.keygen.StringKeyGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -21,12 +24,16 @@ public class AdminServiceImpl implements AdminService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final StringKeyGenerator stringKeyGenerator;
+
     public AdminServiceImpl(UserRepository userRepository,
                             PasswordEncoder passwordEncoder,
-                            AuthenticationManager authenticationManager) {
+                            AuthenticationManager authenticationManager,
+                            StringKeyGenerator stringKeyGenerator) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.stringKeyGenerator = stringKeyGenerator;
     }
 
     @Override
@@ -45,10 +52,19 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public void registration(AuthenticationRequest request) {
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setName(request.getName());
-        user.setHash(passwordEncoder.encode(request.getPassword()));
+        userRepository.findByEmail(request.getEmail()).ifPresent(user1 -> {throw new RuntimeException("User exist in System");});
+        String salt = stringKeyGenerator.generateKey();
+        User user = User.builder()
+                .salt(salt)
+                .email(request.getEmail())
+                .name(request.getName())
+                .hash(passwordEncoder.encode(salt + request.getPassword()))
+                .build();
         userRepository.save(user);
+    }
+
+    @Override
+    public void logout() {
+        SecurityContextHolder.clearContext();
     }
 }

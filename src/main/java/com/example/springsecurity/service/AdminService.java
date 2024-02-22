@@ -6,4 +6,6 @@ public interface AdminService {
     String authenticate(AuthenticationRequest request);
 
     void registration(AuthenticationRequest request);
+
+    void logout();
 }

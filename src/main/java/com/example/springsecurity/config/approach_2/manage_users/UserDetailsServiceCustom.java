@@ -1,10 +1,15 @@
 package com.example.springsecurity.config.approach_2.manage_users;
 
+import com.example.springsecurity.entity.User;
 import com.example.springsecurity.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
+@Component
 public class UserDetailsServiceCustom implements UserDetailsManager {
 
     private final UserRepository userRepository;
@@ -40,6 +45,7 @@ public class UserDetailsServiceCustom implements UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User name or password not correct"));
+        return new SecurityUser(user.getEmail(), user.getHash(), user.getSalt(), new ArrayList<>());
     }
 }

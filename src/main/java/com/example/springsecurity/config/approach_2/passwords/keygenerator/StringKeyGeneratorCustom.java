@@ -2,7 +2,9 @@ package com.example.springsecurity.config.approach_2.passwords.keygenerator;
 
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.keygen.StringKeyGenerator;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StringKeyGeneratorCustom implements StringKeyGenerator {
 
     private final StringKeyGenerator keyGenerators = KeyGenerators.string();

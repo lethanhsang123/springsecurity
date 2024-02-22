@@ -1,5 +1,6 @@
 package com.example.springsecurity.config.approach_2.manage_users;
 
+import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
