@@ -33,7 +33,7 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
         SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(email);
         String rawPassword = securityUser.getSalt() + password;
         if (!passwordEncoder.matches(rawPassword, securityUser.getPassword())) {
-            throw new BadCredentialsException("User name or password not correct");
+            throw new BadCredentialsException("Bad credentials");
         }
 
         return UsernamePasswordAuthenticationToken.authenticated(email, securityUser.getPassword(), securityUser.getAuthorities());

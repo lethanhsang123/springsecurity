@@ -8,6 +8,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 @Component
 public class UserDetailsServiceCustom implements UserDetailsManager {
@@ -45,7 +46,10 @@ public class UserDetailsServiceCustom implements UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User name or password not correct"));
+        Supplier<UsernameNotFoundException> exS =
+                () -> new UsernameNotFoundException(
+                        "Problem during authentication!");
+        User user = userRepository.findByEmail(username).orElseThrow(exS);
         return new SecurityUser(user.getEmail(), user.getHash(), user.getSalt(), new ArrayList<>());
     }
 }
