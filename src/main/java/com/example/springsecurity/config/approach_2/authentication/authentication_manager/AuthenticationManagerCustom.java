@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.authentication_manager;
+package com.example.springsecurity.config.approach_2.authentication.authentication_manager;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

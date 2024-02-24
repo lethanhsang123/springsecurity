@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.passwords;
+package com.example.springsecurity.config.approach_2.authentication.passwords;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

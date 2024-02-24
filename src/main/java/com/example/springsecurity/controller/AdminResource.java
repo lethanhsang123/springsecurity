@@ -4,6 +4,7 @@ import com.example.springsecurity.model.request.AuthenticationRequest;
 import com.example.springsecurity.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
 import org.springframework.security.concurrent.DelegatingSecurityContextExecutorService;
 import org.springframework.security.core.context.SecurityContext;
@@ -54,6 +55,11 @@ public class AdminResource {
     @GetMapping("/test")
     public ResponseEntity<?> test() {
         return ResponseEntity.ok("TESTTTTTTT");
+    }
+
+    @GetMapping("/test2")
+    public ResponseEntity<?> test2() {
+        return ResponseEntity.ok("TESTTTTTTT2");
     }
 
     @GetMapping("/ciao")

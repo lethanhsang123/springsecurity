@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.passwords.keygenerator;
+package com.example.springsecurity.config.approach_2.authentication.passwords.keygenerator;
 
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.keygen.StringKeyGenerator;

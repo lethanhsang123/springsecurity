@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
+//@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class SecurityConfigurer {
 
     public static final String[] URL_WHITE_LIST = {
@@ -26,7 +26,10 @@ public class SecurityConfigurer {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers(URL_WHITE_LIST).permitAll()
+                        .requestMatchers("security/api/v1/admin/authentication").permitAll()
+                        .requestMatchers("security/api/v1/admin/registration").hasRole("ADMIN")
+                        .requestMatchers("security/api/v1/admin/test").hasAuthority("READ")
+                        .requestMatchers("security/api/v1/admin/test2").hasAuthority("WRITE")
                         .anyRequest().authenticated()
                 )
         ;

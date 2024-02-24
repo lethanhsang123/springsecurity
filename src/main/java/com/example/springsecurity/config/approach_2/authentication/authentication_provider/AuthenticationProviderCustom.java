@@ -1,18 +1,14 @@
-package com.example.springsecurity.config.approach_2.authentication_provider;
+package com.example.springsecurity.config.approach_2.authentication.authentication_provider;
 
-import com.example.springsecurity.config.approach_2.manage_users.SecurityUser;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import com.example.springsecurity.config.approach_2.authentication.manage_users.SecurityUser;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class AuthenticationProviderCustom implements AuthenticationProvider {

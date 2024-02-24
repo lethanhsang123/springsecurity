@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.manage_users;
+package com.example.springsecurity.config.approach_2.authentication.manage_users;
 
 import com.example.springsecurity.entity.User;
 import com.example.springsecurity.repository.UserRepository;
@@ -8,6 +8,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 @Component
@@ -50,6 +51,6 @@ public class UserDetailsServiceCustom implements UserDetailsManager {
                 () -> new UsernameNotFoundException(
                         "Problem during authentication!");
         User user = userRepository.findByEmail(username).orElseThrow(exS);
-        return new SecurityUser(user.getEmail(), user.getHash(), user.getSalt(), new ArrayList<>());
+        return new SecurityUser(user.getEmail(), user.getHash(), user.getSalt(), List.of("READ"));
     }
 }
