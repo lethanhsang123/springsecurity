@@ -1,9 +1,11 @@
 package com.example.springsecurity.repository;
 
-import com.example.springsecurity.entity.Authority;
+import com.example.springsecurity.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface PermissionRepository extends JpaRepository<Authority, Integer> {
+public interface UserRoleRepository extends JpaRepository<UserRole, Integer> {
 }

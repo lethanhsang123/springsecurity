@@ -53,6 +53,7 @@ public class AdminResource {
     }
 
     @GetMapping("/test")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> test() {
         return ResponseEntity.ok("TESTTTTTTT");
     }
@@ -63,7 +64,6 @@ public class AdminResource {
         return ResponseEntity.ok("TESTTTTTTT2");
     }
     @GetMapping("/anonymous")
-    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> anonymous() {
         return ResponseEntity.ok("OKOK");
     }

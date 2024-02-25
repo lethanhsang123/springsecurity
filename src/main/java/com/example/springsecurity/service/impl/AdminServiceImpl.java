@@ -1,8 +1,8 @@
 package com.example.springsecurity.service.impl;
 
-import com.example.springsecurity.entity.User;
+import com.example.springsecurity.entity.*;
 import com.example.springsecurity.model.request.AuthenticationRequest;
-import com.example.springsecurity.repository.UserRepository;
+import com.example.springsecurity.repository.*;
 import com.example.springsecurity.service.AdminService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -26,14 +28,26 @@ public class AdminServiceImpl implements AdminService {
 
     private final StringKeyGenerator stringKeyGenerator;
 
-    public AdminServiceImpl(UserRepository userRepository,
-                            PasswordEncoder passwordEncoder,
-                            AuthenticationManager authenticationManager,
-                            StringKeyGenerator stringKeyGenerator) {
+    private final UserAuthorityRepository userAuthorityRepository;
+
+    private final UserRoleRepository userRoleRepository;
+
+    private final AuthorityRepository authorityRepository;
+
+    private final RoleRepository roleRepository;
+
+    public AdminServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                            AuthenticationManager authenticationManager, StringKeyGenerator stringKeyGenerator,
+                            UserAuthorityRepository userAuthorityRepository, UserRoleRepository userRoleRepository,
+                            AuthorityRepository authorityRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.stringKeyGenerator = stringKeyGenerator;
+        this.userAuthorityRepository = userAuthorityRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.authorityRepository = authorityRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -60,7 +74,28 @@ public class AdminServiceImpl implements AdminService {
                 .name(request.getName())
                 .hash(passwordEncoder.encode(salt + request.getPassword()))
                 .build();
-        userRepository.save(user);
+        user = userRepository.save(user);
+
+        Integer uId = user.getId();
+        // create authorities for user
+        if (request.getAuthorities() != null) {
+            List<Authority> authorities = authorityRepository.findAllByName(request.getAuthorities());
+            List<UserAuthority> userAuthorities = authorities
+                    .stream()
+                    .map(authority -> UserAuthority.builder().authorityId(authority.getId()).uId(uId).build())
+                    .toList();
+            userAuthorityRepository.saveAll(userAuthorities);
+        }
+
+        // create roles for user
+        if (request.getRoles() != null) {
+            List<Role> roles = roleRepository.findAllByName(request.getRoles());
+            List<UserRole> userRoles = roles
+                    .stream()
+                    .map(role -> UserRole.builder().roleId(role.getId()).uId(uId).build())
+                    .toList();
+            userRoleRepository.saveAll(userRoles);
+        }
     }
 
     @Override

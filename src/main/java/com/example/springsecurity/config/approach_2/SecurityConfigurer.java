@@ -26,6 +26,8 @@ public class SecurityConfigurer {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         String sQEL = "hasAuthority('READ') || hasRole('MANAGER') ";
         String sQEL2 = "hasAuthority('WRITE') || hasRole('MANAGER') ";
+        String sQEL3 = "hasAuthority('UPDATE') || hasRole('MANAGER') ";
+        String sQEL4 = "hasAuthority('DELETE') || hasRole('MANAGER') ";
         http
                 .httpBasic(Customizer.withDefaults())
                 .cors(AbstractHttpConfigurer::disable)
@@ -35,6 +37,9 @@ public class SecurityConfigurer {
                         .requestMatchers("/security/api/v1/admin/registration").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET).access(new WebExpressionAuthorizationManager(sQEL))
                         .requestMatchers(HttpMethod.POST).access(new WebExpressionAuthorizationManager(sQEL2))
+                        .requestMatchers(HttpMethod.PUT).access(new WebExpressionAuthorizationManager(sQEL3))
+                        .requestMatchers(HttpMethod.PATCH).access(new WebExpressionAuthorizationManager(sQEL3))
+                        .requestMatchers(HttpMethod.DELETE).access(new WebExpressionAuthorizationManager(sQEL4))
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
