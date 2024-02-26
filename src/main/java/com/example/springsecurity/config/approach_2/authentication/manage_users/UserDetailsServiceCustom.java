@@ -1,6 +1,9 @@
 package com.example.springsecurity.config.approach_2.authentication.manage_users;
 
+import com.example.springsecurity.entity.Role;
 import com.example.springsecurity.entity.User;
+import com.example.springsecurity.repository.AuthorityRepository;
+import com.example.springsecurity.repository.RoleRepository;
 import com.example.springsecurity.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,9 +18,14 @@ import java.util.function.Supplier;
 public class UserDetailsServiceCustom implements UserDetailsManager {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final AuthorityRepository authorityRepository;
 
-    public UserDetailsServiceCustom(UserRepository userRepository) {
+    public UserDetailsServiceCustom(UserRepository userRepository, RoleRepository roleRepository,
+                                    AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.authorityRepository = authorityRepository;
     }
 
     @Override

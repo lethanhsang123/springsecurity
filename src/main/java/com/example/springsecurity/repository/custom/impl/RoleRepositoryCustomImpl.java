@@ -1,7 +1,9 @@
 package com.example.springsecurity.repository.custom.impl;
 
+import com.example.springsecurity.entity.Role;
 import com.example.springsecurity.repository.custom.RoleRepositoryCustom;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +17,8 @@ public class RoleRepositoryCustomImpl implements RoleRepositoryCustom {
     }
 
     @Override
-    public List<Integer> findRoleIdsByNames(Collection<String> names) {
-        return null;
+    public List<Role> findAllByRole(Role role) {
+        Query query = entityManager.createQuery("");
+        return query.getResultList();
     }
 }
