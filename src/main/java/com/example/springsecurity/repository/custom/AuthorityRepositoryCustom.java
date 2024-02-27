@@ -6,5 +6,5 @@ import java.util.Collection;
 import java.util.List;
 
 public interface AuthorityRepositoryCustom {
-    List<Authority> findAllByAuthority(Authority authority);
+    List<Authority> findAllByNames(List<String> names);
 }

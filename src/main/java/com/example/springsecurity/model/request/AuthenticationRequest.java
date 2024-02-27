@@ -3,6 +3,7 @@ package com.example.springsecurity.model.request;
 import lombok.Data;
 
 import java.util.Collection;
+import java.util.List;
 
 @Data
 public class AuthenticationRequest {
@@ -10,6 +11,6 @@ public class AuthenticationRequest {
     private String email;
     private String password;
     private String name;
-    private Collection<String> roles;
-    private Collection<String> authorities;
+    private List<String> roles;
+    private List<String> authorities;
 }

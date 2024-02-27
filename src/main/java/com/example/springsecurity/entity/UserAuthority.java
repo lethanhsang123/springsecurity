@@ -3,8 +3,8 @@ package com.example.springsecurity.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "user_authrority")
-@Table(schema = "user_authrority")
+@Entity(name = "user_authority")
+@Table(schema = "user_authority")
 @Data
 @Builder
 @NoArgsConstructor

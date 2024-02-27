@@ -13,9 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -79,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
         Integer uId = user.getId();
         // create authorities for user
         if (request.getAuthorities() != null) {
-            List<Authority> authorities = authorityRepository.findAllByName(request.getAuthorities());
+            List<Authority> authorities = authorityRepository.findAllByNames(request.getAuthorities());
             List<UserAuthority> userAuthorities = authorities
                     .stream()
                     .map(authority -> UserAuthority.builder().authorityId(authority.getId()).uId(uId).build())
@@ -89,7 +87,7 @@ public class AdminServiceImpl implements AdminService {
 
         // create roles for user
         if (request.getRoles() != null) {
-            List<Role> roles = roleRepository.findAllByName(request.getRoles());
+            List<Role> roles = roleRepository.findAllByNames(request.getRoles());
             List<UserRole> userRoles = roles
                     .stream()
                     .map(role -> UserRole.builder().roleId(role.getId()).uId(uId).build())

@@ -16,3 +16,4 @@ logging:
   level:
     root: debug
     org.springframework.security.web: DEBUG
+    org.springframework.data.web: DEBUG

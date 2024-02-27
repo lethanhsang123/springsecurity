@@ -24,6 +24,7 @@ public class SecurityConfigurer {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // default password: 123456
         String sQEL = "hasAuthority('READ') || hasRole('MANAGER') ";
         String sQEL2 = "hasAuthority('WRITE') || hasRole('MANAGER') ";
         String sQEL3 = "hasAuthority('UPDATE') || hasRole('MANAGER') ";

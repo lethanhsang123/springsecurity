@@ -6,5 +6,5 @@ import java.util.Collection;
 import java.util.List;
 
 public interface RoleRepositoryCustom {
-    List<Role> findAllByRole(Role role);
+    List<Role> findAllByNames(List<String> names);
 }
