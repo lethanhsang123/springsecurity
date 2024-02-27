@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.authentication.entrypoint;
+package com.example.springsecurity.config.authentication.entrypoint;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

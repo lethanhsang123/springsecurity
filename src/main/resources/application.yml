@@ -17,3 +17,7 @@ logging:
     root: debug
     org.springframework.security.web: DEBUG
     org.springframework.data.web: DEBUG
+configuration:
+  filters:
+    authorization:
+      static-key: test

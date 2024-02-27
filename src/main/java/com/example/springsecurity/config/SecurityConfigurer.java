@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2;
+package com.example.springsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

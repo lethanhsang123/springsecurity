@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.authentication.manage_users;
+package com.example.springsecurity.config.authentication.manage_users;
 
 import com.example.springsecurity.entity.Authority;
 import com.example.springsecurity.entity.Role;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @Component
 public class UserDetailsServiceCustom implements UserDetailsManager {

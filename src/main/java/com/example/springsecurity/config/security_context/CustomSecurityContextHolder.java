@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.security_context;
+package com.example.springsecurity.config.security_context;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;

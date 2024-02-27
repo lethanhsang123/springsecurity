@@ -1,4 +1,4 @@
-package com.example.springsecurity.config.approach_2.authentication.manage_users;
+package com.example.springsecurity.config.authentication.manage_users;
 
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
