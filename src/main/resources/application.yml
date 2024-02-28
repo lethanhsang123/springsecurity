@@ -16,6 +16,8 @@ logging:
   level:
     root: debug
     org.springframework.security.web: DEBUG
+    org.springframework.security.authentication: DEBUG
+    org.springframework.security.authorization: DEBUG
     org.springframework.data.web: DEBUG
 configuration:
   filters:

@@ -9,7 +9,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
 public class StaticKeyAuthenticationFilter extends OncePerRequestFilter {
 
     @Value("${configuration.filters.authorization.static-key}")

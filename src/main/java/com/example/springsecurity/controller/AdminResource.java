@@ -53,13 +53,11 @@ public class AdminResource {
     }
 
     @GetMapping("/test")
-    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> test() {
         return ResponseEntity.ok("TESTTTTTTT");
     }
 
     @PostMapping("/test2")
-    @PreAuthorize("hasAuthority('WRITE')")
     public ResponseEntity<?> test2() {
         return ResponseEntity.ok("TESTTTTTTT2");
     }
