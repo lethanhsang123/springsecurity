@@ -17,6 +17,10 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -36,9 +40,13 @@ public class SecurityConfigurer {
     // Inject CsrfTokenRepository Been
     private final CsrfTokenRepository customCsrfTokenRepository;
     private final CsrfTokenRequestHandler csrfTokenRequestAttributeHandler;
+    // Inject CorsConfigSource for CORS mechain
+    private final CorsConfigurationSource configurationSource;
 
-    public SecurityConfigurer(CsrfTokenRepository customCsrfTokenRepository) {
+    public SecurityConfigurer(CsrfTokenRepository customCsrfTokenRepository,
+                              CorsConfigurationSource configurationSource) {
         this.customCsrfTokenRepository = customCsrfTokenRepository;
+        this.configurationSource = configurationSource;
         this.csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
     }
 
@@ -58,7 +66,9 @@ public class SecurityConfigurer {
 
         http
                 .httpBasic(Customizer.withDefaults())
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(cors -> {
+                    cors.configurationSource(configurationSource);
+                })
                 .csrf(csrf -> {
                     csrf.ignoringRequestMatchers(CSRF_URI_WHITE_LIST);
                     csrf.csrfTokenRepository(customCsrfTokenRepository);
