@@ -1,6 +1,8 @@
 package com.example.springsecurity.config;
 
+import com.example.springsecurity.config.csrf.CustomCsrfTokenRepository;
 import com.example.springsecurity.config.filters.CsrfTokenLogger;
+import com.example.springsecurity.repository.TokenRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,6 +14,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
@@ -31,9 +35,11 @@ public class SecurityConfigurer {
 
     // Inject CsrfTokenRepository Been
     private final CsrfTokenRepository customCsrfTokenRepository;
+    private final CsrfTokenRequestHandler csrfTokenRequestAttributeHandler;
 
     public SecurityConfigurer(CsrfTokenRepository customCsrfTokenRepository) {
         this.customCsrfTokenRepository = customCsrfTokenRepository;
+        this.csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
     }
 
     @Bean
@@ -56,6 +62,7 @@ public class SecurityConfigurer {
                 .csrf(csrf -> {
                     csrf.ignoringRequestMatchers(CSRF_URI_WHITE_LIST);
                     csrf.csrfTokenRepository(customCsrfTokenRepository);
+                    csrf.csrfTokenRequestHandler(csrfTokenRequestAttributeHandler);
                     /*csrf.ignoringRequestMatchers(r);*/
                 })
                 .authorizeHttpRequests( (req) -> req
@@ -68,7 +75,7 @@ public class SecurityConfigurer {
                         .requestMatchers(HttpMethod.DELETE).access(new WebExpressionAuthorizationManager(sQEL4))*/
                         .anyRequest().authenticated()
                 )
-                /*.addFilterAfter(new CsrfTokenLogger(), CsrfFilter.class)*/
+                .addFilterAfter(new CsrfTokenLogger(), CsrfFilter.class)
                 .logout(logout -> logout
                         .invalidateHttpSession(Boolean.TRUE)
                         .deleteCookies("JSESSIONID")

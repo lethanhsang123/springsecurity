@@ -55,10 +55,6 @@ public class CustomCsrfTokenRepository implements CsrfTokenRepository {
         String identifier = request.getHeader(DEFAULT_CLIENT_IDENTIFIER_HEADER_NAME);
         if (Objects.isNull(identifier) || identifier.isEmpty() || identifier.isBlank()) return null;
         Optional<Token> existingToken = tokenRepository.findByIdentifier(DEFAULT_CSRF_CLIENT_IDENTIFIER_PREFIX + identifier);
-        if (existingToken.isPresent()) {
-            Token token = existingToken.get();
-            return new DefaultCsrfToken(DEFAULT_CSRF_HEADER_NAME, DEFAULT_CSRF_PARAMETER_NAME, token.getToken());
-        }
-        return null;
+        return existingToken.map(token -> new DefaultCsrfToken(DEFAULT_CSRF_HEADER_NAME, DEFAULT_CSRF_PARAMETER_NAME, token.getToken())).orElse(null);
     }
 }
