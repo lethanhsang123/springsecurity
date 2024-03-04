@@ -14,7 +14,7 @@ public class CustomCorsConfigurationSource {
     public CorsConfigurationSource configurationSource() {
         return request -> {
             CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOrigins(List.of("", ""));
+            configuration.setAllowedOrigins(List.of("*"));
             configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "UPDATE", "DELETE"));
             return configuration;
         };
