@@ -15,14 +15,12 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class UserManagementConfigure {
 
     @Bean
-    public UserDetailsService uds() {
-        var uds = new InMemoryUserDetailsManager();
-        var u = User.withUsername("john")
-                .password("12345")
+    public UserDetailsService userDetailsService() {
+        var u = User.withUsername("user")
+                .password("password")
                 .authorities("read")
                 .build();
-        uds.createUser(u);
-        return uds;
+        return new InMemoryUserDetailsManager(u);
     }
 
     @Bean
