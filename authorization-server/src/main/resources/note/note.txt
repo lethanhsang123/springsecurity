@@ -1,0 +1,21 @@
+PKCE: proof key for code exchange
+  - verifier = random() -> challenge = sha-256(verifier) 
+  - step1: user authorization with AuthServer(challenge_code) -> authCode
+  - step2: client use get AccessToken(authCode, verifier) -> accessToken
+    challenge_code and verifier to....
+
+get authorization-code-endpoint:
+	http://localhost:8080/oauth2/authorize?
+	response_type=code&
+	client_id=client&
+	scope=openid&
+	redirect_uri=http://example.com/auth&
+	code_challenge=l0Vd-kzdeQ5C7rj9noAhqm3IJDGOJAsYoCRW2x5_Lwk&
+	code_challenge_method=S256
+get access-token end point: http://localhost:8080/oauth2/token
+	body: 
+		client_id:client
+		redirect_uri:http://example.com/auth
+		grant_type:authorization_code
+		code:5PfHJje-yElCcA4OUYvD3tYwDMipULOE3_Maz78vO-M3LaBPflp7LrxdC4QQWnhjqpTSlDBWvHYL8qt2VcPxRE9K1aBp-rx3zRrNoh9lRCNCNHNo1o46eJuWJBgShmDJ
+		code_verifier:6WBaIi3Iqg3UxbkGubxS4vRJfGFF6PDUzC3GC9waB9M

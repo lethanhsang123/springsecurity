@@ -18,7 +18,7 @@ public class UserManagementConfigure {
     public UserDetailsService userDetailsService() {
         var u = User.withUsername("user")
                 .password("password")
-                .roles("USER")
+//                .roles("USER")
                 .authorities("read")
                 .build();
         return new InMemoryUserDetailsManager(u);

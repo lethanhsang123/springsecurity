@@ -22,11 +22,10 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 public class AuthorizationServerConfig {
 
     private final UserDetailsService userDetailsService;
-    private final RegisteredClientRepository registeredClientRepository;
+//    private final RegisteredClientRepository registeredClientRepository;
 
-    public AuthorizationServerConfig(UserDetailsService userDetailsService, RegisteredClientRepository registeredClientRepository) {
+    public AuthorizationServerConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.registeredClientRepository = registeredClientRepository;
     }
 
     @Bean
@@ -52,7 +51,7 @@ public class AuthorizationServerConfig {
         ));
 
         // Accept access token for User Info add/or Client Registration
-        http.oauth2ResourceServer((resourceServer) -> resourceServer.jwt(Customizer.withDefaults()));
+//        http.oauth2ResourceServer((resourceServer) -> resourceServer.jwt(Customizer.withDefaults()));
         return http.build();
     }
 
@@ -61,9 +60,7 @@ public class AuthorizationServerConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> {
-                    auth.anyRequest().authenticated();
-                });
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
         return http.build();
     }
 
