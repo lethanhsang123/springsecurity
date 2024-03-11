@@ -3,6 +3,7 @@ package com.example.authorizationserver.services;
 import com.example.authorizationserver.entities.*;
 import com.example.authorizationserver.repositories.ClientRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class ClientService implements RegisteredClientRepository {
 
     private final ClientRepository clientRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -24,7 +26,7 @@ public class ClientService implements RegisteredClientRepository {
         Client c = new Client();
 
         c.setClientId(registeredClient.getClientId());
-        c.setSecret(registeredClient.getClientSecret());
+        c.setSecret(passwordEncoder.encode(registeredClient.getClientSecret()));
         c.setAuthenticationMethods(registeredClient.getClientAuthenticationMethods()
                 .stream().map(a -> AuthenticationMethod.from(a, c)).collect(Collectors.toSet()));
         c.setGrantTypes(

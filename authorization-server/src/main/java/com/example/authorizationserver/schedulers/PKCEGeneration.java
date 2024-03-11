@@ -1,9 +1,8 @@
 package com.example.authorizationserver.schedulers;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.Scheduled;
+import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
@@ -12,7 +11,10 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 @Service
+@AllArgsConstructor
 public class PKCEGeneration {
+
+    private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void pkceGenerate() throws NoSuchAlgorithmException {
@@ -33,6 +35,7 @@ public class PKCEGeneration {
                 .encodeToString(digested);
         System.out.println("VERIFIER: " + codeVerifier);
         System.out.println("CHALLENGE: : " + codeChallenge);
+        System.out.println("encoder(secret): " + passwordEncoder.encode("secret"));
     }
 
 }
