@@ -1,0 +1,21 @@
+1. Get all authorization-server endpoints uri:
+curl --location 'http://localhost:8080/.well-known/openid-configuration' \
+--header 'X-IDENTIFIER: 2' \
+--header 'X-CSRF-TOKEN: 12345'
+
+
+2. End point get authorization code
+
+curl --location 'http://localhost:8080/oauth2/authorize?esponse_type=code&client_id=client&scope=openid&redirect_uri=http%3A%2F%2Fexample.com%2Fauth&code_challenge=82_1YzdnSEdG-8c6ZzKMfeO3MMWGhIx0Rq4_8DDv_hw&code_challenge_method=S256'
+
+
+3. End point get access-token
+curl --location 'http://localhost:8080/oauth2/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'Authorization: Basic Y2xpZW50OnNlY3JldA==' \
+--data-urlencode 'client_id=client' \
+--data-urlencode 'redirect_uri=http://example.com/auth' \
+--data-urlencode 'grant_type=authorization_code' \
+--data-urlencode 'code=SSkdy9p98cgjFqM1lcbDj72pCFyZKu4Er-4ZonNpzbJ76TxcNRno1JisOz8nM0q0G1JNsjeKBMndtmqB6xNKYTbhe3tXghXQwwnoESvw4PZ2OsJlATHOpXqQBWqaQ9Ct' \
+--data-urlencode 'code_verifier=5WAdNeJCC2fyIHmilHp5CmcQb70HjjAfjc_JgEty-XU'
+

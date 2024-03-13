@@ -1,4 +1,4 @@
-package com.example.authorizationserver.services;
+package com.example.authorizationserver.services.client;
 
 import com.example.authorizationserver.entities.*;
 import com.example.authorizationserver.repositories.ClientRepository;

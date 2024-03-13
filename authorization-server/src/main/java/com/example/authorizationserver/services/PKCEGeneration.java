@@ -1,4 +1,4 @@
-package com.example.authorizationserver.schedulers;
+package com.example.authorizationserver.services;
 
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
