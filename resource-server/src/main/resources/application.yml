@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: resource-server
+
+server:
+  port: 9090
+
+jwksUri: http://localhost:8080/oauth2/jwks
