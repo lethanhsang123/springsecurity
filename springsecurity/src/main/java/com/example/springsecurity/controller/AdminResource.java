@@ -4,13 +4,17 @@ import com.example.springsecurity.model.request.AuthenticationRequest;
 import com.example.springsecurity.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
 import org.springframework.security.concurrent.DelegatingSecurityContextExecutorService;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -41,9 +45,19 @@ public class AdminResource {
     }
 
     @PostMapping("/registration")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasPermission(#request.name, 'test', 'ROLE_admin')")
+//    @PostAuthorize("hasPermission(#returnObject, 'test', 'ROLE_admin')")
     public ResponseEntity<?> registration(@RequestBody AuthenticationRequest request) {
         adminService.registration(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("User created");
+    }
+
+    @PreFilter("filterObject.name == 'TEST' ")
+    @PostFilter("filterObject.name == 'TEST' ")
+    public List<AuthenticationRequest> testFiltering(@RequestBody List<AuthenticationRequest> requests) {
+
+        return requests;
     }
 
     @GetMapping("/logout")

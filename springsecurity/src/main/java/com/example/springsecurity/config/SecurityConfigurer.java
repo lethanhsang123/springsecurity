@@ -6,6 +6,9 @@ import com.example.springsecurity.repository.TokenRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.PermissionEvaluator;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,12 +45,14 @@ public class SecurityConfigurer {
     private final CsrfTokenRequestHandler csrfTokenRequestAttributeHandler;
     // Inject CorsConfigSource for CORS mechain
     private final CorsConfigurationSource configurationSource;
-
+    private final PermissionEvaluator permissionEvaluator;
     public SecurityConfigurer(CsrfTokenRepository customCsrfTokenRepository,
-                              CorsConfigurationSource configurationSource) {
+                              CorsConfigurationSource configurationSource,
+                              PermissionEvaluator permissionEvaluator) {
         this.customCsrfTokenRepository = customCsrfTokenRepository;
         this.configurationSource = configurationSource;
         this.csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
+        this.permissionEvaluator = permissionEvaluator;
     }
 
     @Bean
@@ -98,5 +103,12 @@ public class SecurityConfigurer {
                 )*/
         ;
         return http.build();
+    }
+
+    @Bean
+    public MethodSecurityExpressionHandler methodSecurityExpressionHandler() {
+        var expressionHandler = new DefaultMethodSecurityExpressionHandler();
+        expressionHandler.setPermissionEvaluator(this.permissionEvaluator);
+        return expressionHandler;
     }
 }
