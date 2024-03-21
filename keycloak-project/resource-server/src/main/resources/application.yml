@@ -1,6 +1,23 @@
 spring:
   application:
     name: resource-server
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: admin_test
+    password: 1
+    driver-class-name: org.postgresql.Driver
+  jpa:
+#    hibernate:
+#      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: resource_server
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/dive-dev
 
 server:
   port: 9090
