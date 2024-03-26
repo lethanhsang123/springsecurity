@@ -6,7 +6,9 @@ import com.example.resourceserver.entities.Restaurant;
 import com.example.resourceserver.repositories.MenuItemRepository;
 import com.example.resourceserver.repositories.MenuRepository;
 import com.example.resourceserver.repositories.RestaurantRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -16,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/restaurant")
 @AllArgsConstructor
-//@SecurityRequirement(name = "Keycloak")
+@SecurityRequirement(name = "Keycloak")
 public class RestaurantController {
 
     private final RestaurantRepository restaurantRepository;
@@ -27,6 +29,7 @@ public class RestaurantController {
 
     @GetMapping
     @RequestMapping("/public/list")
+    @PreAuthorize("hasRole('manager')")
     //Public API
     public List<Restaurant> getRestaurants() {
         return restaurantRepository.findAll();
@@ -42,8 +45,8 @@ public class RestaurantController {
     }
 
     // admin can access (admin)
-//    @PreAuthorize("hasRole('admin')")
     @PostMapping
+    @PreAuthorize("hasRole('admin')")
     public Restaurant createRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
@@ -64,7 +67,7 @@ public class RestaurantController {
     @PutMapping
     @RequestMapping("/menu/item/{itemId}/{price}")
     // owner can access (amar)
-//    @PreAuthorize("hasRole('owner')")
+    @PreAuthorize("hasRole('owner')")
     public MenuItem updateMenuItemPrice(@PathVariable Long itemId
             , @PathVariable BigDecimal price) {
         Optional<MenuItem> menuItem = menuItemRepository.findById(itemId);

@@ -18,6 +18,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/dive-dev
+      uri-ignore: /v3/api-docs,/v3/api-docs/*,/swagger-ui/*,/restaurant/public/list,/restaurant/public/menu/*
 
 server:
   port: 9090
