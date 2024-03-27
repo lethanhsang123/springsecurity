@@ -1,0 +1,31 @@
+{
+  "realm": "dive-dev",
+  "auth-server-url": "http://localhost:8080",
+  "resource": "springboot-be",
+  "credentials": {
+    "secret": "sftOjB9WQX9zHMGJunJMoTNaYR0Odxz1"
+  },
+  "http-method-as-scope": true,
+  "paths": [
+    {
+      "path": "/swagger-ui/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v3/api-docs",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v3/api-docs/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/restaurant/public/list",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/restaurant/public/menu/*",
+      "enforcement-mode": "DISABLED"
+    }
+  ]
+}

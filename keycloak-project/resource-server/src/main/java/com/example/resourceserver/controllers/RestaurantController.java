@@ -46,7 +46,7 @@ public class RestaurantController {
 
     // admin can access (admin)
     @PostMapping
-    @PreAuthorize("hasRole('admin')")
+//    @PreAuthorize("hasRole('admin')")
     public Restaurant createRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }

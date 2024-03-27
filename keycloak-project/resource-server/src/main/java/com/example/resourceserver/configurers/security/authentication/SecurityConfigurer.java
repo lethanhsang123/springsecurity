@@ -1,4 +1,4 @@
-package com.example.resourceserver.configurers.security;
+package com.example.resourceserver.configurers.security.authentication;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,17 +13,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfigurer {
 
 //    private final JwtAuthConverter jwtAuthConverter;
     @Value("${spring.security.oauth2.uri-ignore}")
     private String [] URI_IGNORE;
 
-    @Bean
+//    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(t -> t.disable())
@@ -38,7 +39,7 @@ public class SecurityConfigurer {
         return http.build();
     }
 
-    @Bean
+//    @Bean
     public DefaultMethodSecurityExpressionHandler msecurity() {
         DefaultMethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler =
                 new DefaultMethodSecurityExpressionHandler();
@@ -46,7 +47,7 @@ public class SecurityConfigurer {
         return defaultMethodSecurityExpressionHandler;
     }
 
-    @Bean
+//    @Bean
     public JwtAuthenticationConverter converter() {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
@@ -55,5 +56,6 @@ public class SecurityConfigurer {
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }
+
 
 }
