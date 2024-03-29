@@ -19,6 +19,15 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/dive-dev
       uri-ignore: /v3/api-docs,/v3/api-docs/*,/swagger-ui/*,/restaurant/public/list,/restaurant/public/menu/*
+keycloak:
+  configurations:
+    realm: dive-dev
+    server-uri: http://localhost:8080/realms/dive-dev
+    client-id: admin-cli
+    grant-type: password
+    name: admin
+    password: 1
+
 
 server:
   port: 9090
