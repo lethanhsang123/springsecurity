@@ -5,7 +5,7 @@ import org.keycloak.admin.client.KeycloakBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class KeycloakSecurityUtil {
 
     Keycloak keycloak;

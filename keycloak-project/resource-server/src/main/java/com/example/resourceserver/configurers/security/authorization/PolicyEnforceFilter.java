@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 
-@Configuration
+//@Configuration
 public class PolicyEnforceFilter {
 
     /**
@@ -18,7 +18,7 @@ public class PolicyEnforceFilter {
      * and I want adds this to policy enforcer config
      * @return ServletPolicyEnforcerFilter
      */
-    @Bean
+//    @Bean
     public ServletPolicyEnforcerFilter servletPolicyEnforcerFilter() {
         return new ServletPolicyEnforcerFilter(new ConfigurationResolver() {
             @Override

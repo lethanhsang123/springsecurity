@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-@Component
+//@Component
 public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
     @Override
