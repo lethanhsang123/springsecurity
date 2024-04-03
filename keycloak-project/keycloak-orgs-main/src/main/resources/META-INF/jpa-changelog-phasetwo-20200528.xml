@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+  <changeSet author="garth (generated)" id="1590682724768-2">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <dbms type="cockroachdb"/>
+      </not>
+    </preConditions>  
+    <dropPrimaryKey tableName="USER_ORGANIZATION_ROLE_MAPPING"/>
+  </changeSet>
+  <changeSet author="garth (generated)" id="1590682724768-3">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <dbms type="cockroachdb"/>
+      </not>
+    </preConditions>  
+    <addPrimaryKey columnNames="ID" constraintName="USER_ORGANIZATION_ROLE_MAPPINGPK" tableName="USER_ORGANIZATION_ROLE_MAPPING"/>
+  </changeSet>
+
+  <!-- crdb specific -->
+  <changeSet author="garth (generated)" id="1590682724768-crdb">
+    <validCheckSum>8:c4f727d3a9db8b66ceb9d4e6a268fa22</validCheckSum>
+    <validCheckSum>8:d41d8cd98f00b204e9800998ecf8427e</validCheckSum>
+    <sql dbms="cockroachdb">ALTER TABLE USER_ORGANIZATION_ROLE_MAPPING ALTER PRIMARY KEY USING COLUMNS (ID);</sql>
+  </changeSet>
+</databaseChangeLog>
