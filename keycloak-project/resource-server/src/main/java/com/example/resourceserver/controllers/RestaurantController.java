@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/restaurant")
+@RequestMapping("/restaurants")
 @AllArgsConstructor
 @SecurityRequirement(name = "Keycloak")
 public class RestaurantController {
@@ -29,7 +29,7 @@ public class RestaurantController {
 
     @GetMapping
     @RequestMapping("/public/list")
-    @PreAuthorize("hasRole('manager')")
+//    @PreAuthorize("hasRole('manager')")
     //Public API
     public List<Restaurant> getRestaurants() {
         return restaurantRepository.findAll();
@@ -67,7 +67,7 @@ public class RestaurantController {
     @PutMapping
     @RequestMapping("/menu/item/{itemId}/{price}")
     // owner can access (amar)
-    @PreAuthorize("hasRole('owner')")
+//    @PreAuthorize("hasRole('owner')")
     public MenuItem updateMenuItemPrice(@PathVariable Long itemId
             , @PathVariable BigDecimal price) {
         Optional<MenuItem> menuItem = menuItemRepository.findById(itemId);
@@ -76,5 +76,14 @@ public class RestaurantController {
         return menuItem.get();
     }
 
+    @GetMapping("/test/1")
+    public String test() {
+        return "GET RESTAURANT";
+    }
+
+    @PostMapping("/test/2")
+    public String test2() {
+        return "POST RESTAURANT";
+    }
 
 }

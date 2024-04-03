@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 @AllArgsConstructor
 public class OrderController {
 
@@ -44,6 +44,16 @@ public class OrderController {
             orderItemRepository.save(orderItem);
         });
         return order;
+    }
+
+    @GetMapping("/test/1")
+    public String test() {
+        return "GET ORDER";
+    }
+
+    @PostMapping("/test/2")
+    public String test2() {
+        return "POST ORDER";
     }
 
 }

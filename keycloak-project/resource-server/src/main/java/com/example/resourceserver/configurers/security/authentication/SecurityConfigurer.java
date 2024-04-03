@@ -1,5 +1,6 @@
 package com.example.resourceserver.configurers.security.authentication;
 
+import com.example.resourceserver.configurers.security.JwtAuthConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +22,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfigurer {
 
-//    private final JwtAuthConverter jwtAuthConverter;
+    private final JwtAuthConverter jwtAuthConverter;
     @Value("${spring.security.oauth2.uri-ignore}")
     private String [] URI_IGNORE;
 
-//    @Bean
+    public SecurityConfigurer(JwtAuthConverter jwtAuthConverter) {
+        this.jwtAuthConverter = jwtAuthConverter;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -33,7 +38,7 @@ public class SecurityConfigurer {
                         .requestMatchers(URI_IGNORE).permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(t -> t
-                        .jwt(Customizer.withDefaults())
+                        .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthConverter))
                 )
                 .sessionManagement(t -> t.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         ;
