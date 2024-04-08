@@ -10,28 +10,28 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 
-@Configuration
-public class PolicyEnforceFilter {
-
-    /**
-     * Tell the ServletPolicyEnforcerFilter that I have keycloak specific configurations
-     * and I want adds this to policy enforcer config
-     * @return ServletPolicyEnforcerFilter
-     */
-    @Bean
-    public ServletPolicyEnforcerFilter servletPolicyEnforcerFilter() {
-        return new ServletPolicyEnforcerFilter(new ConfigurationResolver() {
-            @Override
-            public PolicyEnforcerConfig resolve(HttpRequest httpRequest) {
-                try {
-                    return JsonSerialization.readValue(getClass().getResourceAsStream(
-                            "/policy-enforcer.json"),
-                            PolicyEnforcerConfig.class);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-    }
-
-}
+//@Configuration
+//public class PolicyEnforceFilter {
+//
+//    /**
+//     * Tell the ServletPolicyEnforcerFilter that I have keycloak specific configurations
+//     * and I want adds this to policy enforcer config
+//     * @return ServletPolicyEnforcerFilter
+//     */
+//    @Bean
+//    public ServletPolicyEnforcerFilter servletPolicyEnforcerFilter() {
+//        return new ServletPolicyEnforcerFilter(new ConfigurationResolver() {
+//            @Override
+//            public PolicyEnforcerConfig resolve(HttpRequest httpRequest) {
+//                try {
+//                    return JsonSerialization.readValue(getClass().getResourceAsStream(
+//                            "/policy-enforcer.json"),
+//                            PolicyEnforcerConfig.class);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        });
+//    }
+//
+//}

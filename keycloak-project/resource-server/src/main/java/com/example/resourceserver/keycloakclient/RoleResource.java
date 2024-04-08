@@ -7,7 +7,6 @@ import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.common.util.CollectionUtil;
 import org.keycloak.representations.idm.RoleRepresentation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +18,14 @@ import java.util.List;
 @SecurityRequirement(name = "Keycloak")
 public class RoleResource {
 
-    @Autowired
-    KeycloakSecurityUtil keycloakUtil;
+    private final KeycloakSecurityUtil keycloakUtil;
 
-    @Value("${realm}")
+    @Value("${keycloak.configurations.realm}")
     private String realm;
+
+    public RoleResource(KeycloakSecurityUtil keycloakUtil) {
+        this.keycloakUtil = keycloakUtil;
+    }
 
     @GetMapping(value = "/roles")
     public List<Role> getRoles() {

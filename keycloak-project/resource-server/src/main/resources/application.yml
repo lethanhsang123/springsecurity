@@ -3,7 +3,7 @@ spring:
     name: resource-server
   datasource:
     url: jdbc:postgresql://localhost:5432/test
-    username: admin_test
+    username: admin
     password: 1
     driver-class-name: org.postgresql.Driver
   jpa:
@@ -17,15 +17,15 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/dive-dev
+          issuer-uri: http://localhost:8080/realms/test
       uri-ignore: /v3/api-docs,/v3/api-docs/*,/swagger-ui/*,/restaurant/public/list,/restaurant/public/menu/*
 keycloak:
   configurations:
-    realm: dive-dev
-    server-uri: http://localhost:8080/realms/dive-dev
-    client-id: admin-cli
+    realm: test
+    server-uri: http://localhost:8080/realms/test
+    client-id: test
     grant-type: password
-    name: admin
+    name: test
     password: 1
 
 

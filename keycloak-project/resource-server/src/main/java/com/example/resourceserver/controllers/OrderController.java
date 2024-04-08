@@ -46,4 +46,16 @@ public class OrderController {
         return order;
     }
 
+    @GetMapping("/test")
+    public String test1() {
+        System.out.println("GET");
+        return "GET test";
+    }
+
+    @PostMapping("/test")
+    public String test2() {
+        System.out.println("POST");
+        return "POST test";
+    }
+
 }

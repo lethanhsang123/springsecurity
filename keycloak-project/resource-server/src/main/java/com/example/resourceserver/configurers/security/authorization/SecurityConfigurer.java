@@ -10,26 +10,26 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfigurer {
-
-    private final ServletPolicyEnforcerFilter servletPolicyEnforcerFilter;
-
-    public SecurityConfigurer(ServletPolicyEnforcerFilter servletPolicyEnforcerFilter) {
-        this.servletPolicyEnforcerFilter = servletPolicyEnforcerFilter;
-    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterAfter(servletPolicyEnforcerFilter, BearerTokenAuthenticationFilter.class)
-                .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        ;
-        return http.build();
-    }
-
-
-
-}
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfigurer {
+//
+//    private final ServletPolicyEnforcerFilter servletPolicyEnforcerFilter;
+//
+//    public SecurityConfigurer(ServletPolicyEnforcerFilter servletPolicyEnforcerFilter) {
+//        this.servletPolicyEnforcerFilter = servletPolicyEnforcerFilter;
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .addFilterAfter(servletPolicyEnforcerFilter, BearerTokenAuthenticationFilter.class)
+//                .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//        ;
+//        return http.build();
+//    }
+//
+//
+//
+//}
