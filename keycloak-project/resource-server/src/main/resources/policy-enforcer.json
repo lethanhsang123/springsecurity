@@ -1,9 +1,9 @@
 {
-  "realm": "dive-dev",
+  "realm": "test",
   "auth-server-url": "http://localhost:8080",
-  "resource": "springboot-be",
+  "resource": "test",
   "credentials": {
-    "secret": "sftOjB9WQX9zHMGJunJMoTNaYR0Odxz1"
+    "secret": "hNa34kimEc06EdB4lVp1lEyHHJwPz1HT"
   },
   "http-method-as-scope": true,
   "paths": [
@@ -17,14 +17,6 @@
     },
     {
       "path": "/v3/api-docs/*",
-      "enforcement-mode": "DISABLED"
-    },
-    {
-      "path": "/restaurant/public/list",
-      "enforcement-mode": "DISABLED"
-    },
-    {
-      "path": "/restaurant/public/menu/*",
       "enforcement-mode": "DISABLED"
     }
   ]

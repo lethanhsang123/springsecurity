@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SecurityScheme(
         name = "Keycloak",
-        openIdConnectUrl = "http://localhost:8080/realms/dive-dev/.well-known/openid-configuration",
+        openIdConnectUrl = "http://localhost:8080/realms/test/.well-known/openid-configuration",
         scheme = "bearer",
         type = SecuritySchemeType.OPENIDCONNECT,
         in = SecuritySchemeIn.HEADER

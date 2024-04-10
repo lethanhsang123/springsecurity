@@ -1,0 +1,18 @@
+{
+  "realm": "test",
+  "auth-server-url": "http://localhost:8080",
+  "ssl-required": "external",
+  "resource": "test",
+  "credentials": {
+    "secret": "hNa34kimEc06EdB4lVp1lEyHHJwPz1HT"
+  },
+  "policy-enforcer": {
+    "enforcement-mode": "ENFORCING",
+    "paths": [
+      {
+        "path": "/test",
+        "enforcement-mode": "ENFORCING"
+      }
+    ]
+  }
+}
