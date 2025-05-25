@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: resource-server
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:9000
+          jwk-set-uri: http://127.0.0.1:9000/oauth2/jwks # Add jwkSetUri configuration, resource server will not ping authorization server on startup.
+server:
+  port: 8090
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG

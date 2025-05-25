@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres
+    hostname: auth_client_database
+    container_name: oauth2_client_database
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+      POSTGRES_DB: ${POSTGRES_DB:-oauth2_client}
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - sanzee_network
+    volumes:
+      - auth_client_volume:/data/postgres
+
+volumes:
+  auth_client_volume:
+    driver: local
+networks:
+  sanzee_network:
+    driver: bridge

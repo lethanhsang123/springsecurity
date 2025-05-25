@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.4.2
+    hostname: auth_server_database
+    container_name: auth_server_database
+    restart: always
+    environment:
+      MYSQL_DATABASE: auth_server
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      # <Port exposed>: <MySQL port running inside container>
+      - '3306:3306'
+    networks:
+      - sanzee_network
+    # where our data persisted
+    volumes:
+      - auth_server_volume:/var/lib/mysql
+
+  # Names our volume
+volumes:
+  auth_server_volume:
+    driver: local
+
+networks:
+  sanzee_network:
+    driver: bridge
